@@ -33,13 +33,13 @@ require('dotenv').config();
   
   // Fill in the username and password
   console.log("3 - Email");
-  await new Promise(resolve => setTimeout(resolve, 1000 * 1)); 
+  await new Promise(resolve => setTimeout(resolve, 1000 * 2)); 
   await page.type('input[type="email"]', process.env.GOOGLE_USERNAME);
   await page.click('div[id="identifierNext"]');
   
   // wait for a bit
   console.log("3 - Password");
-  await new Promise(resolve => setTimeout(resolve, 1000 * 1)); 
+  await new Promise(resolve => setTimeout(resolve, 1000 * 2)); 
   await page.type('input[type="password"]', process.env.GOOGLE_PASSWORD);
   await page.click('div[id="passwordNext"]');
 
