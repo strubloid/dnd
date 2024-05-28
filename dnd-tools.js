@@ -92,7 +92,7 @@ const EXTENSION_PATH_LIVE_CHAT_OVERLAY = path.join('extensions', 'live-chat-over
   console.log('Popout Value:', popOutUrl);
 
 
-  await new Promise(resolve => setTimeout(resolve, 1000 * 60 * 10)); 
+  // await new Promise(resolve => setTimeout(resolve, 1000 * 60 * 10)); 
 
   await browser.close();
 })();
