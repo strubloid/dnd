@@ -9,7 +9,13 @@ require('dotenv').config();
   // Launch the browser with the specified window size
   const browser = await puppeteer.launch({
     headless: false,
-    args: [`--window-size=${width},${height}`, '--disable-blink-features=AutomationControlled']
+    // executablePath: '/usr/bin/google-chrome',
+    // userDataDir: '/home/zero/.config/google-chrome/Default',
+    args: [
+      `--window-size=${width},${height}`, 
+      '--disable-blink-features=AutomationControlled',
+      '--load-extension=/media/games/dev/dnd/extensions/live-chat-overlay-main'
+    ]
   });
 
   // Launch the page with specific size
@@ -40,9 +46,16 @@ require('dotenv').config();
   // Wait for login to complete
   await page.waitForNavigation({ waitUntil: 'networkidle0' });
 
+  // console.log("Adding: Live Chat Overlay Extension");
+  // console.log("1 - access chrome store page");
+  // await page.goto('https://chromewebstore.google.com/detail/live-chat-overlay/aplaefbnohemkmngdogmbkpompjlijia', { waitUntil: 'networkidle2' });
+  // await new Promise(resolve => setTimeout(resolve, 1000 * 60 * 10)); 
+
+
 
   console.log("DND PAGE on Youtube");
 
+  
   console.log("1 - Accessing Page");
   await page.goto('https://www.youtube.com/@DnDBrasilCork/live', { waitUntil: 'networkidle2' });
 
@@ -61,16 +74,23 @@ require('dotenv').config();
   // document.querySelector('tp-yt-paper-listbox ytd-menu-service-item-renderer:nth-of-type(2)')
   await iframe.click('tp-yt-paper-listbox ytd-menu-service-item-renderer:nth-of-type(2)');
 
+  await new Promise(resolve => setTimeout(resolve, 1000 * 5)); 
+
   console.log("4 - New Page URL");
   const pages = await browser.pages();
-  let pageIndex = 0;
+  
+  
+  // await pages[1].evaluate(() => {
+  //   console.log(document.location.href)
+  // });
 
-  while (pageIndex < pages.length) {
-    const page = pages[pageIndex];
-    const url = await page.url();
-    console.log(url);
-    pageIndex++;
-}
+//   let pageIndex = 0;
+//   while (pageIndex < pages.length) {
+//     const page = pages[pageIndex];
+//     const url = await page.url();
+//     console.log(url);
+//     pageIndex++;
+// }
 
   
   const newPage = pages[pages.length - 1];
@@ -79,7 +99,7 @@ require('dotenv').config();
   }
  
   console.log('Waiting');
-  await new Promise(resolve => setTimeout(resolve, 1000 * 60 * 10)); 
+  // await new Promise(resolve => setTimeout(resolve, 1000 * 60 * 10)); 
 
   await browser.close();
 })();
